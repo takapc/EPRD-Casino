@@ -15,7 +15,7 @@ import { IconButton } from "@chakra-ui/button";
 import { RepeatClockIcon } from "@chakra-ui/icons";
 import { useToast } from "@chakra-ui/toast";
 
-const endpoint = "http://localhost:8000";
+const endpoint = "https://money-manager-api.takatsuki.club";
 
 type RankingResponse = {
     rank: number;
@@ -30,7 +30,9 @@ const Page = () => {
     const toast = useToast();
     useEffect(() => {
         axios.get(endpoint + "/rankings").then((res) => {
+            setIsLoading(true);
             setRankings(res.data);
+            setIsLoading(false);
         });
     }, []);
 

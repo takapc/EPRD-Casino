@@ -18,11 +18,12 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { Context, useEffect, useState } from "react";
 import { TransactionItem } from "../componet/TransactionItem";
 import { BrowserView } from "react-device-detect";
+import { GetServerSideProps, NextPage } from "next";
 
-const endpoint = "http://localhost:8000";
+const endpoint = "https://money-manager-api.takatsuki.club";
 
 type UserInfo = {
     user_id: string;
@@ -40,20 +41,15 @@ type Transaction = {
     timestamp: string;
 };
 
-const Page = () => {
+type StatusUserProps = { id: string };
+
+const Page: NextPage<StatusUserProps> = (props) => {
     const router = useRouter();
     const toast = useToast();
-    const { id } = router.query;
+    const id = props.id;
 
     const [userData, setUserData] = useState<UserInfo>();
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-    useEffect(() => {
-        axios.get(endpoint + "/users/" + id).then((res) => {
-            setUserData(res.data);
-            setIsLoading(false);
-        });
-    }, []);
-
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     return (
         <BrowserView>
             <Center>
@@ -124,3 +120,14 @@ const Page = () => {
 };
 
 export default Page;
+
+export const getServerSideProps: GetServerSideProps<StatusUserProps> = async (
+    context
+) => {
+    let { id } = context.query;
+
+    if (typeof id !== "string") {
+        id = "0000";
+    }
+    return { props: { id } };
+};
