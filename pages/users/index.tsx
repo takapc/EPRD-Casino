@@ -41,14 +41,14 @@ type Transaction = {
     timestamp: string;
 };
 
-type StatusUserProps = { id: string };
+type StatusUserProps = { id: number; data: UserInfo };
 
 const Page: NextPage<StatusUserProps> = (props) => {
     const router = useRouter();
     const toast = useToast();
-    const id = props.id;
+    const { id } = props;
 
-    const [userData, setUserData] = useState<UserInfo>();
+    const [userData, setUserData] = useState<UserInfo>(props.data);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     return (
         <BrowserView>
@@ -68,7 +68,10 @@ const Page: NextPage<StatusUserProps> = (props) => {
                                         現在の所持金 : {userData?.having_money}{" "}
                                         DBC
                                     </Text>
-                                    <Text size="md"> ID: {id}</Text>
+                                    <Text size="md">
+                                        {" "}
+                                        ID: {userData?.user_id}
+                                    </Text>
                                 </Stack>
                             </HStack>
                         </CardHeader>
@@ -107,6 +110,7 @@ const Page: NextPage<StatusUserProps> = (props) => {
                                         <TransactionItem
                                             name={userData?.nickname}
                                             amount={transaction.amount}
+                                            key={transaction.timestamp}
                                         />
                                     )
                                 )}
@@ -129,5 +133,8 @@ export const getServerSideProps: GetServerSideProps<StatusUserProps> = async (
     if (typeof id !== "string") {
         id = "0000";
     }
-    return { props: { id } };
+    const res = await fetch(`${endpoint}/users/${id}`);
+    const data = await res.json();
+
+    return { props: { id, data } };
 };
