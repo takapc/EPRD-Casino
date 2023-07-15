@@ -1,46 +1,28 @@
 import { Button } from "@chakra-ui/button";
 import { Card, CardBody, CardFooter, CardHeader } from "@chakra-ui/card";
 import {
-    Box,
-    Container,
     Flex,
     HStack,
     Heading,
     Link,
     Stack,
+    SimpleGrid,
     StackDivider,
     Text,
     VStack,
 } from "@chakra-ui/layout";
 import { BrowserView, MobileView } from "react-device-detect";
 import NextLink from "next/link";
-import { TransactionItem } from "./componet/TransactionItem";
+import { TransactionItem } from "../componet/TransactionItem";
 import { Spacer } from "@chakra-ui/react";
+import { MobileFooter } from "../componet/MobileFooter";
 
 const Page = () => {
     return (
         <>
             <BrowserView>
                 <VStack>
-                    <Flex w="100vw" h="40vh" justify="center" align="center">
-                        <HStack spacing={"100px"}>
-                            <Card width={200}>
-                                <CardHeader>
-                                    <Heading size={"md"}>情報</Heading>
-                                </CardHeader>
-                                <CardBody>
-                                    <Text>
-                                        プレイ履歴やアカウント情報を確認する
-                                    </Text>
-                                </CardBody>
-                                <CardFooter>
-                                    <Link as={NextLink} href="/users/1">
-                                        <Button bgColor={"blue.400"}>
-                                            Click
-                                        </Button>
-                                    </Link>
-                                </CardFooter>
-                            </Card>
+                    <SimpleGrid columns={[1,2]} spacing="40px" margin="20px">
                             <Card width={200}>
                                 <CardHeader>
                                     <Heading size={"md"}>ランキング</Heading>
@@ -71,11 +53,10 @@ const Page = () => {
                                     </Button>
                                 </CardFooter>
                             </Card>
-                        </HStack>
-                    </Flex>
+                    </SimpleGrid>
                     <Card width={"60%"}>
                         <CardHeader>
-                            <Heading size="md">最近の勝負</Heading>
+                            <Heading size="md">最近の履歴</Heading>
                         </CardHeader>
 
                         <CardBody>
@@ -107,9 +88,7 @@ const Page = () => {
                 </VStack>
             </BrowserView>
             <MobileView>
-                <Heading color={"red.700"}>
-                    This page is not allowed for mobile.
-                </Heading>
+                    <MobileFooter />
             </MobileView>
         </>
     );

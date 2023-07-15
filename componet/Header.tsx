@@ -10,7 +10,7 @@ import NextLink from "next/link";
 
 export const Header = () => {
     return (
-        <chakra.header py="calc(1vh)" bgColor={"blue.200"}>
+        <chakra.header py="calc(1vh)" bgColor={"blue.200"} position={"sticky"} top={0} zIndex={1}>
             <Container maxW={"container.lg"}>
                 <Flex>
                     <Link href={"/"} as={NextLink} _hover={{ opacity: 0.8 }}>

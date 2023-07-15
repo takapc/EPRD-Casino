@@ -13,6 +13,8 @@
     "@chakra-ui/react": "^2.6.1",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "@next/swc-darwin-arm64": "^13.4.9",
+    "@react-icons/all-files": "^4.1.0",
     "@types/ua-parser-js": "^0.7.36",
     "axios": "^1.4.0",
     "framer-motion": "^10.12.11",
@@ -20,7 +22,7 @@
     "react": "18.2.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "18.2.0",
-    "react-icons": "^4.8.0"
+    "react-icons": "^4.10.1"
   },
   "devDependencies": {
     "@types/node": "20.1.5",
